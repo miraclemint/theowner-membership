@@ -4,47 +4,47 @@ import { MemberRegistration, Course, Booking, MemberStatus } from "./types";
 // ============================================
 // Data Mapping Helpers
 // ============================================
-function mapMember(row: any): MemberRegistration {
+function mapMember(row: Record<string, unknown>): MemberRegistration {
     return {
-        id: row.id,
-        fullName: row.full_name,
-        phone: row.phone,
-        email: row.email,
-        plan: row.plan,
-        memberCode: row.member_code,
-        status: row.status,
-        slipImage: row.slip_image,
-        registeredAt: row.registered_at,
-        approvedAt: row.approved_at,
-        expiresAt: row.expires_at,
-        note: row.note,
+        id: row.id as string,
+        fullName: row.full_name as string,
+        phone: row.phone as string,
+        email: row.email as string | null,
+        plan: row.plan as "3month" | "trial",
+        memberCode: row.member_code as string | null,
+        status: row.status as MemberStatus,
+        slipImage: row.slip_image as string | null,
+        registeredAt: row.registered_at as string,
+        approvedAt: row.approved_at as string | null,
+        expiresAt: row.expires_at as string | null,
+        note: row.note as string | null,
     };
 }
 
-function mapCourse(row: any): Course {
+function mapCourse(row: Record<string, unknown>): Course {
     return {
-        id: row.id,
-        title: row.title,
-        subtitle: row.subtitle,
-        description: row.description,
-        date: row.date_text,
-        time: row.time_text,
-        mode: row.mode,
-        instructor: row.instructor,
-        spots: row.spots,
-        maxSpots: row.max_spots,
-        image: row.image_url,
-        createdAt: row.created_at,
+        id: row.id as string,
+        title: row.title as string,
+        subtitle: row.subtitle as string,
+        description: row.description as string,
+        date: row.date_text as string,
+        time: row.time_text as string,
+        mode: row.mode as "online" | "onsite",
+        instructor: row.instructor as string,
+        spots: row.spots as number,
+        maxSpots: row.max_spots as number,
+        image: row.image_url as string,
+        createdAt: row.created_at as string,
     };
 }
 
-function mapBooking(row: any): Booking {
+function mapBooking(row: Record<string, unknown>): Booking {
     return {
-        id: row.id,
-        memberId: row.member_id,
-        courseId: row.course_id,
-        bookedAt: row.booked_at,
-        status: row.status,
+        id: row.id as string,
+        memberId: row.member_id as string,
+        courseId: row.course_id as string,
+        bookedAt: row.booked_at as string,
+        status: row.status as "confirmed" | "cancelled",
     };
 }
 
@@ -204,7 +204,7 @@ export async function addCourse(data: Omit<Course, "id" | "createdAt">): Promise
 }
 
 export async function updateCourse(id: string, data: Partial<Course>): Promise<Course | null> {
-    const dbData: any = {};
+    const dbData: Record<string, unknown> = {};
     if (data.title !== undefined) dbData.title = data.title;
     if (data.subtitle !== undefined) dbData.subtitle = data.subtitle;
     if (data.description !== undefined) dbData.description = data.description;

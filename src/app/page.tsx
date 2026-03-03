@@ -11,10 +11,8 @@ import type { Course } from "@/lib/types";
 // ============================================
 function Navbar({
   onNavigate,
-  currentPage,
 }: {
   onNavigate: (page: string) => void;
-  currentPage: string;
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -1676,7 +1674,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar onNavigate={navigateTo} currentPage={currentPage} />
+      <Navbar onNavigate={navigateTo} />
 
       {currentPage === "home" && (
         <>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import type {
     MemberRegistration,
     MemberStatus,
@@ -39,7 +40,7 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
             } else {
                 setError("รหัสผ่านไม่ถูกต้อง");
             }
-        } catch (err) {
+        } catch {
             setError("เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน");
         }
         setLoading(false);
@@ -300,8 +301,15 @@ function MemberDetailModal({
 // Member Row
 // ============================================
 function MemberRow({ member, onClick }: { member: MemberRegistration; onClick: () => void }) {
+    const [now, setNow] = useState<number | null>(null);
+
+    useEffect(() => {
+        setTimeout(() => setNow(Date.now()), 0);
+    }, []);
+
     const timeDiff = (iso: string) => {
-        const diff = Date.now() - new Date(iso).getTime();
+        if (!now) return "...";
+        const diff = now - new Date(iso).getTime();
         const hrs = Math.floor(diff / (1000 * 60 * 60));
         if (hrs < 1) return "เมื่อสักครู่";
         if (hrs < 24) return `${hrs} ชม. ที่แล้ว`;
@@ -556,7 +564,10 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         setBookings(await getAllBookings());
     }, []);
 
-    useEffect(() => { loadAll(); }, [loadAll]);
+    useEffect(() => {
+        loadAll();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const showToast = (message: string, type: "success" | "error") => {
         setToast({ message, type });
@@ -682,7 +693,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                             </div>
                         </div>
                         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                            <a href="/" className="btn-secondary btn-sm" style={{ textDecoration: "none" }}>🏠</a>
+                            <Link href="/" className="btn-secondary btn-sm" style={{ textDecoration: "none" }}>🏠</Link>
                             <button onClick={onLogout} style={{
                                 padding: "8px 16px", background: "rgba(239, 68, 68, 0.15)",
                                 border: "1px solid rgba(239, 68, 68, 0.3)", color: "var(--danger)",
@@ -745,7 +756,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                                 className="input-field"
                                 style={{ flex: 1, minWidth: "120px", maxWidth: "200px", padding: "10px" }}
                                 value={planFilter}
-                                onChange={(e) => setPlanFilter(e.target.value as any)}
+                                onChange={(e) => setPlanFilter(e.target.value as "all" | "3month" | "trial")}
                             >
                                 <option value="all">🌟 ทุกแพ็กเกจ</option>
                                 <option value="3month">👑 3 เดือน (OW)</option>

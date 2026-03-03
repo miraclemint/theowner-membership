@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import type { MemberRegistration, Course, Booking } from "@/lib/types";
 import {
     getMemberByCodeAndPhone,
@@ -147,9 +148,9 @@ function MemberLogin({ onLogin }: { onLogin: (member: MemberRegistration) => voi
                         }}
                     >
                         ยังไม่มีรหัสสมาชิก?{" "}
-                        <a href="/" style={{ color: "var(--gold-500)", fontWeight: 600 }}>
+                        <Link href="/" style={{ color: "var(--gold-500)", fontWeight: 600 }}>
                             สมัครเลย
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -458,6 +459,7 @@ function MemberDashboard({
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
     const [successCourse, setSuccessCourse] = useState<Course | null>(null);
     const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+    const [now, setNow] = useState<number | null>(null);
 
     const loadData = useCallback(async () => {
         setCourses(await getAllCourses());
@@ -466,7 +468,9 @@ function MemberDashboard({
 
     useEffect(() => {
         loadData();
-    }, [loadData]);
+        setTimeout(() => setNow(Date.now()), 0);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const showToast = (message: string, type: "success" | "error") => {
         setToast({ message, type });
@@ -496,8 +500,8 @@ function MemberDashboard({
     const isExpired = member.plan === "3month" && member.expiresAt
         ? new Date(member.expiresAt) < new Date()
         : false;
-    const daysLeft = member.expiresAt
-        ? Math.max(0, Math.ceil((new Date(member.expiresAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+    const daysLeft = member.expiresAt && now
+        ? Math.max(0, Math.ceil((new Date(member.expiresAt).getTime() - now) / (1000 * 60 * 60 * 24)))
         : null;
     const confirmedBookings = bookings.filter((b) => b.status === "confirmed");
     const trialUsed = member.plan === "trial" && confirmedBookings.length >= 1;
@@ -580,13 +584,13 @@ function MemberDashboard({
                         </div>
 
                         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                            <a
+                            <Link
                                 href="/"
                                 className="btn-secondary btn-sm"
                                 style={{ textDecoration: "none" }}
                             >
                                 🏠
-                            </a>
+                            </Link>
                             <button
                                 onClick={onLogout}
                                 className="btn-sm"
