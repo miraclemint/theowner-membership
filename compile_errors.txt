@@ -1,0 +1,27 @@
+src/app/admin/page.tsx(15,5): error TS2305: Module '"@/lib/storage"' has no exported member 'seedDemoData'.
+src/app/admin/page.tsx(535,20): error TS2345: Argument of type 'Promise<MemberRegistration[]>' is not assignable to parameter of type 'SetStateAction<MemberRegistration[]>'.
+src/app/admin/page.tsx(536,20): error TS2345: Argument of type 'Promise<Course[]>' is not assignable to parameter of type 'SetStateAction<Course[]>'.
+src/app/admin/page.tsx(537,21): error TS2345: Argument of type 'Promise<Booking[]>' is not assignable to parameter of type 'SetStateAction<Booking[]>'.
+src/app/admin/page.tsx(551,43): error TS2339: Property 'fullName' does not exist on type 'Promise<MemberRegistration | null>'.
+src/app/admin/page.tsx(551,76): error TS2339: Property 'memberCode' does not exist on type 'Promise<MemberRegistration | null>'.
+src/app/admin/page.tsx(559,42): error TS2339: Property 'fullName' does not exist on type 'Promise<MemberRegistration | null>'.
+src/app/admin/page.tsx(865,70): error TS2339: Property 'image' does not exist on type 'Promise<Course | undefined>'.
+src/app/admin/page.tsx(869,74): error TS2339: Property 'title' does not exist on type 'Promise<Course | undefined>'.
+src/app/member/page.tsx(12,5): error TS2305: Module '"@/lib/storage"' has no exported member 'seedDemoData'.
+src/app/member/page.tsx(33,25): error TS2345: Argument of type 'Promise<MemberRegistration | undefined>' is not assignable to parameter of type 'MemberRegistration'.
+  Type 'Promise<MemberRegistration | undefined>' is missing the following properties from type 'MemberRegistration': id, fullName, phone, plan, and 3 more.
+src/app/member/page.tsx(464,20): error TS2345: Argument of type 'Promise<Course[]>' is not assignable to parameter of type 'SetStateAction<Course[]>'.
+src/app/member/page.tsx(465,21): error TS2345: Argument of type 'Promise<Booking[]>' is not assignable to parameter of type 'SetStateAction<Booking[]>'.
+src/app/member/page.tsx(480,20): error TS2339: Property 'success' does not exist on type 'Promise<{ success: boolean; message: string; booking?: Booking | undefined; }>'.
+src/app/member/page.tsx(482,30): error TS2345: Argument of type 'Promise<Course | undefined>' is not assignable to parameter of type 'SetStateAction<Course | null>'.
+src/app/member/page.tsx(485,35): error TS2339: Property 'message' does not exist on type 'Promise<{ success: boolean; message: string; booking?: Booking | undefined; }>'.
+src/app/member/page.tsx(922,70): error TS2345: Argument of type 'Promise<Course | undefined>' is not assignable to parameter of type 'Course'.
+  Type 'Promise<Course | undefined>' is missing the following properties from type 'Course': id, title, subtitle, description, and 8 more.
+src/app/member/page.tsx(958,61): error TS2339: Property 'image' does not exist on type 'Promise<Course | undefined>'.
+src/app/member/page.tsx(968,65): error TS2339: Property 'title' does not exist on type 'Promise<Course | undefined>'.
+src/app/member/page.tsx(971,68): error TS2339: Property 'date' does not exist on type 'Promise<Course | undefined>'.
+src/app/member/page.tsx(971,87): error TS2339: Property 'time' does not exist on type 'Promise<Course | undefined>'.
+src/app/page.tsx(615,16): error TS2345: Argument of type 'Promise<Course[]>' is not assignable to parameter of type 'SetStateAction<Course[]>'.
+src/app/page.tsx(1274,8): error TS2339: Property 'filter' does not exist on type 'Promise<MemberRegistration[]>'.
+src/app/page.tsx(1274,16): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/app/page.tsx(1275,13): error TS7006: Parameter 'm' implicitly has an 'any' type.

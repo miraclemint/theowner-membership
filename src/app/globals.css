@@ -1,0 +1,440 @@
+@import "tailwindcss";
+
+/* ============================================
+   THE OWNER MEMBERSHIP - Design System
+   Color Palette: Navy (#0a1628) / Gold (#c9a84c) / White
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --navy-900: #0a1628;
+    --navy-800: #0f1f3a;
+    --navy-700: #162a4a;
+    --navy-600: #1e3a5f;
+    --navy-500: #2a4a7f;
+
+    --gold-500: #c9a84c;
+    --gold-400: #d4b85e;
+    --gold-300: #e0ca7a;
+    --gold-200: #eadb9e;
+
+    --glass-bg: rgba(15, 31, 58, 0.6);
+    --glass-border: rgba(201, 168, 76, 0.15);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+
+    /* Text */
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0b0c8;
+    --text-muted: #6b7f9e;
+
+    /* Status */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 50%, var(--navy-900) 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background animated particles effect */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(42, 74, 127, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(201, 168, 76, 0.02) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(201, 168, 76, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Gold Gradient Text */
+.gold-text {
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-300), var(--gold-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Primary Button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+  color: var(--navy-900);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--gold-400), var(--gold-300));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary / Outline Button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 32px;
+  background: transparent;
+  color: var(--gold-500);
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2px solid var(--gold-500);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+}
+
+/* Small Button */
+.btn-sm {
+  padding: 8px 20px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.input-field:focus {
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+}
+
+/* Labels */
+.input-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Badge / Tag */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-online {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--info);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-onsite {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-gold {
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--gold-400);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+/* Status Indicators */
+.status-pending {
+  color: var(--warning);
+}
+
+.status-approved {
+  color: var(--success);
+}
+
+.status-expired {
+  color: var(--danger);
+}
+
+/* Section Container */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.25);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* ============================================
+   Pricing Card Special Effects
+   ============================================ */
+
+.pricing-card {
+  position: relative;
+  overflow: visible;
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+}
+
+.pricing-card.featured {
+  border: 1px solid rgba(201, 168, 76, 0.4);
+}
+
+.pricing-card.featured::before {
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-300), var(--gold-500));
+}
+
+/* ============================================
+   Navigation
+   ============================================ */
+
+.nav-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 22, 40, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .section-container {
+    padding: 0 16px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 14px 24px;
+  }
+
+  .glass-card {
+    border-radius: 12px;
+  }
+}
+
+/* ============================================
+   File Upload Area
+   ============================================ */
+
+.upload-area {
+  border: 2px dashed rgba(201, 168, 76, 0.3);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(10, 22, 40, 0.5);
+}
+
+.upload-area:hover {
+  border-color: var(--gold-500);
+  background: rgba(201, 168, 76, 0.05);
+}
+
+.upload-area.has-file {
+  border-color: var(--success);
+  border-style: solid;
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--navy-600);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-500);
+}
