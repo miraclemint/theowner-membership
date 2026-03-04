@@ -1021,7 +1021,7 @@ function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
               </div>
             </div>
 
-            {/* Transfer Info */}
+            {/* QR Code Payment */}
             <div
               className="glass-card"
               style={{
@@ -1034,27 +1034,32 @@ function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
                 style={{
                   fontSize: "0.85rem",
                   color: "var(--text-muted)",
-                  marginBottom: "8px",
+                  marginBottom: "12px",
                 }}
               >
-                💳 โอนเงินมาที่
+                📱 สแกน QR Code เพื่อชำระเงิน
               </p>
-              <p style={{ fontWeight: 700, fontSize: "1.1rem", marginBottom: "4px" }}>
-                ธนาคาร กสิกรไทย
-              </p>
-              <p
-                className="gold-text"
+              <div
                 style={{
-                  fontWeight: 800,
-                  fontSize: "1.4rem",
-                  letterSpacing: "0.1em",
-                  marginBottom: "4px",
+                  background: "#ffffff",
+                  borderRadius: "12px",
+                  padding: "12px",
+                  display: "inline-block",
+                  marginBottom: "12px",
                 }}
               >
-                xxx-x-xxxxx-x
-              </p>
-              <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
-                ชื่อ: The Owner
+                <img
+                  src="/qr-payment.jpg"
+                  alt="QR Code สำหรับชำระเงิน"
+                  style={{
+                    width: "240px",
+                    height: "auto",
+                    borderRadius: "8px",
+                  }}
+                />
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "4px" }}>
+                ชื่อ: นาง สุพัตรา หงษ์วิเศษ
               </p>
               <p
                 className="gold-text"
