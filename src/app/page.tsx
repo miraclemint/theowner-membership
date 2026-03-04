@@ -7,132 +7,273 @@ import type { Course } from "@/lib/types";
 // Types and courses are now imported from @/lib/types and @/lib/storage
 
 // ============================================
-// Navbar Component
+// Navbar Component (Sidebar Drawer)
 // ============================================
 function Navbar({
   onNavigate,
+  currentPage,
 }: {
   onNavigate: (page: string) => void;
+  currentPage: string;
 }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const menuItems = [
+    { key: "home", label: "🏠 หน้าแรก" },
+    { key: "register", label: "📝 สมัครสมาชิก" },
+    { key: "status", label: "🔍 ตรวจสอบสถานะ" },
+    { key: "login", label: "🔐 เข้าสู่ระบบ" },
+  ];
 
   return (
-    <nav className="nav-wrapper">
-      <div className="section-container">
+    <>
+      {/* Top Navbar */}
+      <nav className="nav-wrapper">
+        <div className="section-container">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "64px",
+            }}
+          >
+            {/* Hamburger Button */}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                background: "none",
+                border: "none",
+                color: "var(--gold-500)",
+                fontSize: "1.5rem",
+                cursor: "pointer",
+                padding: "8px",
+              }}
+              aria-label="เปิดเมนู"
+            >
+              ☰
+            </button>
+
+            {/* Logo Center */}
+            <div
+              onClick={() => onNavigate("home")}
+              style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
+            >
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "10px",
+                  background: "linear-gradient(135deg, var(--gold-500), var(--gold-300))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: 900,
+                  fontSize: "1.1rem",
+                  color: "var(--navy-900)",
+                }}
+              >
+                O
+              </div>
+              <span
+                style={{
+                  fontWeight: 700,
+                  fontSize: "1.1rem",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                THE <span className="gold-text">OWNER</span>
+              </span>
+            </div>
+
+            {/* Spacer for centering logo */}
+            <div style={{ width: "40px" }} />
+          </div>
+        </div>
+      </nav>
+
+      {/* Overlay */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(4px)",
+            zIndex: 998,
+            animation: "fadeIn 0.3s ease",
+          }}
+        />
+      )}
+
+      {/* Sidebar Drawer */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: sidebarOpen ? "0" : "-320px",
+          width: "300px",
+          height: "100vh",
+          background: "linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%)",
+          borderRight: "1px solid rgba(201, 168, 76, 0.2)",
+          zIndex: 999,
+          transition: "left 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+          display: "flex",
+          flexDirection: "column",
+          boxShadow: sidebarOpen ? "4px 0 24px rgba(0, 0, 0, 0.5)" : "none",
+          overflowY: "auto",
+        }}
+      >
+        {/* Sidebar Header */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            height: "64px",
+            padding: "20px 24px",
+            borderBottom: "1px solid rgba(201, 168, 76, 0.15)",
           }}
         >
-          {/* Logo */}
-          <div
-            onClick={() => onNavigate("home")}
-            style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
-          >
+          {/* Logo in Sidebar */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div
               style={{
-                width: "36px",
-                height: "36px",
-                borderRadius: "10px",
+                width: "40px",
+                height: "40px",
+                borderRadius: "12px",
                 background: "linear-gradient(135deg, var(--gold-500), var(--gold-300))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontWeight: 900,
-                fontSize: "1.1rem",
+                fontSize: "1.2rem",
                 color: "var(--navy-900)",
               }}
             >
               O
             </div>
-            <span
-              style={{
-                fontWeight: 700,
-                fontSize: "1.1rem",
-                letterSpacing: "0.05em",
-              }}
-            >
-              THE <span className="gold-text">OWNER</span>
-            </span>
+            <div>
+              <div
+                style={{
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                THE <span className="gold-text">OWNER</span>
+              </div>
+              <div
+                style={{
+                  fontSize: "0.7rem",
+                  color: "rgba(255,255,255,0.4)",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                MEMBERSHIP
+              </div>
+            </div>
           </div>
 
-          {/* Desktop Nav removed - using Hamburger only */}
-
-          {/* Hamburger Menu (Shown on all screens) */}
+          {/* Close Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => setSidebarOpen(false)}
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              background: "rgba(201, 168, 76, 0.1)",
-              border: "1px solid rgba(201, 168, 76, 0.3)",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
               borderRadius: "8px",
-              color: "var(--gold-500)",
-              fontSize: "1rem",
-              fontWeight: "600",
+              color: "rgba(255, 255, 255, 0.6)",
+              fontSize: "1.2rem",
               cursor: "pointer",
-              padding: "8px 16px",
+              padding: "6px 10px",
+              transition: "all 0.2s ease",
             }}
+            aria-label="ปิดเมนู"
           >
-            {mobileMenuOpen ? "✕ ปิด" : "☰ เมนู"}
+            ✕
           </button>
         </div>
 
-        {/* Dropdown menu */}
-        {mobileMenuOpen && (
+        {/* Menu Items */}
+        <div
+          style={{
+            padding: "16px 16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+            flex: 1,
+          }}
+        >
+          {menuItems.map((item) => (
+            <button
+              key={item.key}
+              onClick={() => {
+                onNavigate(item.key);
+                setSidebarOpen(false);
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                padding: "14px 16px",
+                borderRadius: "12px",
+                border: "none",
+                background:
+                  currentPage === item.key
+                    ? "linear-gradient(135deg, var(--gold-500), var(--gold-400))"
+                    : "rgba(255, 255, 255, 0.03)",
+                color: currentPage === item.key ? "var(--navy-900)" : "rgba(255, 255, 255, 0.85)",
+                fontSize: "1rem",
+                fontWeight: currentPage === item.key ? "700" : "500",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                textAlign: "left",
+                letterSpacing: "0.02em",
+              }}
+              onMouseEnter={(e) => {
+                if (currentPage !== item.key) {
+                  e.currentTarget.style.background = "rgba(201, 168, 76, 0.1)";
+                  e.currentTarget.style.color = "var(--gold-400)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (currentPage !== item.key) {
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                  e.currentTarget.style.color = "rgba(255, 255, 255, 0.85)";
+                }
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Footer in Sidebar */}
+        <div
+          style={{
+            padding: "20px 24px",
+            borderTop: "1px solid rgba(201, 168, 76, 0.1)",
+            textAlign: "center",
+          }}
+        >
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-              paddingBottom: "16px",
+              fontSize: "0.75rem",
+              color: "rgba(255, 255, 255, 0.25)",
+              letterSpacing: "0.05em",
             }}
-            className="animate-fade-in"
           >
-            <button
-              onClick={() => {
-                onNavigate("home");
-                setMobileMenuOpen(false);
-              }}
-              className="btn-secondary btn-sm"
-            >
-              หน้าแรก
-            </button>
-            <button
-              onClick={() => {
-                onNavigate("register");
-                setMobileMenuOpen(false);
-              }}
-              className="btn-primary btn-sm"
-            >
-              สมัครสมาชิก
-            </button>
-            <button
-              onClick={() => {
-                onNavigate("status");
-                setMobileMenuOpen(false);
-              }}
-              className="btn-secondary btn-sm"
-            >
-              ตรวจสอบสถานะ
-            </button>
-            <button
-              onClick={() => {
-                onNavigate("login");
-                setMobileMenuOpen(false);
-              }}
-              className="btn-secondary btn-sm"
-            >
-              เข้าสู่ระบบ
-            </button>
+            © 2025 The Owner Membership
           </div>
-        )}
+        </div>
       </div>
-    </nav>
+    </>
   );
 }
 
@@ -1674,7 +1815,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar onNavigate={navigateTo} />
+      <Navbar onNavigate={navigateTo} currentPage={currentPage} />
 
       {currentPage === "home" && (
         <>
